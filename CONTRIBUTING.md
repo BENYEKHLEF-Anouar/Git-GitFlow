@@ -102,13 +102,5 @@ We use **Semantic Versioning (SemVer)**:
   git push origin v1.2.0
   ```
 - The changelog (and sometimes deployment) is generated from these tags.
-
-## Definition of Done (DoD)
-
-- All PRs merged via squash.  
-- Tests and lint pass in CI.  
-- Each release/hotfix has a SemVer tag.  
-- `main` and `develop` remain protected.  
-- Back-merges ensure all branches stay synchronized.
-
+  
 ***
