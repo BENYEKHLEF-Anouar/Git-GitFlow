@@ -1,7 +1,5 @@
 # Contributing Guide
 
-Thanks for contributing! This document explains how to work with our repo.
-
 ## Branching Strategy
 
 | Branch     | Role              | Source  | Target         |
