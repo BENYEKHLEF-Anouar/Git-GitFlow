@@ -115,6 +115,16 @@ For detailed installation instructions, see the Git Flow Wiki.
 - Git Flow repository: github.com/nvie/gitflow
 - Community discussion: Google Group
 
+## The Big Picture
+
+main  ----o----o----o----(tags v1.2.0, v1.2.1)
+            \        \
+             \        (hotfix/)
+              \
+develop ----o----o----o----(release/1.2.0)
+              \
+               (feature/)
+
 ## License
 
 Git Flow is licensed under the BSD License. See the LICENSE file for details.
