@@ -1,61 +1,66 @@
-# The hotfix Branch in Git Flow
+# The release Branch in Git Flow
 
 ## Overview
 
-In the Git Flow workflow, a **hotfix** branch is used to quickly address critical issues or bugs found in the production environment. These fixes are made directly from the **main** branch to minimize downtime and then merged back into both **main** and **develop** to keep all branches up to date.
+In the Git Flow model, the **release** branch is used to prepare a new production release. It allows developers to finalize, test, and polish the upcoming version without blocking ongoing work in the **develop** branch.
 
 ## Key Characteristics
 
-- **Created from:** `main`  
+- **Created from:** `develop`  
 - **Merged into:** `main` and `develop`  
-- **Purpose:** To fix urgent issues in the production release (e.g., security bugs, crash fixes)  
-- **Naming convention:** `hotfix/<version>` (e.g., `hotfix/1.0.1`, `hotfix/2.2.3`)  
-- **Temporary branch:** Deleted after merging and tagging the release  
+- **Purpose:** Stabilize the code, perform testing, and fix minor bugs before release  
+- **Naming convention:** `release/<version>` (e.g., `release/1.0`, `release/2.1`)  
+- **Includes:** Final adjustments like documentation updates, version number changes, and small fixes  
+- **Temporary branch:** Deleted after the release is finished  
 
 ## Example Workflow
 
 ```bash
-# Start a hotfix branch from main
-git flow hotfix start 1.0.1
+# Start a new release branch from develop
+git flow release start 1.0
 
-# (Optional) Publish the hotfix branch to remote
-git flow hotfix publish 1.0.1
+# (Optional) Publish the release branch to remote
+git flow release publish 1.0
 
-# Apply and commit the fix
-git commit -am "Fix critical login issue in production"
+# Make final changes (update version, fix bugs, etc.)
+git commit -am "Update version number and finalize release"
 
-# Finish the hotfix
-git flow hotfix finish 1.0.1
+# Finish the release
+git flow release finish 1.0
 ```
 
 ## Explanation of Commands
 
-- `git flow hotfix start <version>` → Creates a new branch `hotfix/<version>` from `main`.  
-- `git flow hotfix publish <version>` → Pushes the hotfix branch to the remote repository for collaboration.  
-- `git flow hotfix finish <version>` → Merges the fix into both `main` and `develop`, tags the commit with the hotfix version (e.g., `v1.0.1`), and deletes the hotfix branch locally.  
+- `git flow release start <version>` → Creates a branch `release/<version>` from `develop`.  
+- `git flow release publish <version>` → Pushes the release branch to the remote repository for collaboration.  
+- `git flow release finish <version>` → Merges the release branch into both `main` and `develop`, tags the commit with the release version (e.g., `v1.0`), and deletes the release branch locally.  
 
 ## Summary
 
-| Aspect            | Description                                        |
-|-------------------|--------------------------------------------------|
-| Branch name       | `hotfix/<version>`                                |
-| Source branch     | `main`                                           |
+| Aspect             | Description                                       |
+|--------------------|-------------------------------------------------|
+| Branch name        | `release/<version>`                              |
+| Source branch      | `develop`                                        |
 | Destination branches | `main` and `develop`                            |
-| Purpose           | Quickly fix critical bugs in production           |
-| Contains          | Emergency patches, urgent security or stability fixes |
-| Merged when       | The fix is tested and verified                     |
-| Deleted after merge | Yes                                             |
+| Purpose            | Prepare and stabilize code for production release |
+| Contains           | Bug fixes, version updates, documentation improvements |
+| Merged when        | The release is fully tested and approved          |
+| Deleted after merge | Yes                                              |
 
 ## Diagram (Text Representation)
 
 ```
-main ────────────────┐
-                      ├── hotfix/1.0.1
-                      │     ├── fix → main (production)
-                      │     └── merge → develop (sync fix)
-develop ──────────────┘
+main ───────┐
+             ├── develop ───┬── feature/add-login
+             │               ├── feature/update-ui
+             │               └── release/1.0
+             │                    │
+             │                    ├── merge → main (production)
+             │                    └── merge → develop (post-release updates)
+             │
+             └── hotfix/1.0.1
 ```
 
-The **hotfix** branch ensures production issues can be resolved immediately without interrupting ongoing development work in **develop**, maintaining both stability and productivity.
+The **release** branch provides a clean environment to finalize and verify a version before deployment, keeping **develop** open for new work while ensuring **main** remains stable and production-ready.
 
 ***
