@@ -1,61 +1,61 @@
-# The feature Branch in Git Flow
+# The hotfix Branch in Git Flow
 
 ## Overview
 
-In the Git Flow workflow, a **feature** branch is used to develop new features, enhancements, or experimental code. Each feature is isolated in its own branch to keep the **develop** branch clean and stable until the feature is completed.
+In the Git Flow workflow, a **hotfix** branch is used to quickly address critical issues or bugs found in the production environment. These fixes are made directly from the **main** branch to minimize downtime and then merged back into both **main** and **develop** to keep all branches up to date.
 
 ## Key Characteristics
 
-- **Created from:** `develop`  
-- **Merged back into:** `develop` when the feature is finished  
-- **Purpose:** Work independently on a specific task or functionality  
-- **Naming convention:** `feature/<feature-name>` (e.g., `feature/add-login`, `feature/update-ui`)  
-- **Temporary branch:** Deleted after merging back into `develop`  
+- **Created from:** `main`  
+- **Merged into:** `main` and `develop`  
+- **Purpose:** To fix urgent issues in the production release (e.g., security bugs, crash fixes)  
+- **Naming convention:** `hotfix/<version>` (e.g., `hotfix/1.0.1`, `hotfix/2.2.3`)  
+- **Temporary branch:** Deleted after merging and tagging the release  
 
 ## Example Workflow
 
 ```bash
-# Create a new feature branch from develop
-git flow feature start add-login
+# Start a hotfix branch from main
+git flow hotfix start 1.0.1
 
-# Work on the feature (commit changes, push if needed)
-git add .
-git commit -m "Add login functionality"
-git flow feature publish add-login  # share with remote team members
+# (Optional) Publish the hotfix branch to remote
+git flow hotfix publish 1.0.1
 
-# When the feature is done
-git flow feature finish add-login
+# Apply and commit the fix
+git commit -am "Fix critical login issue in production"
+
+# Finish the hotfix
+git flow hotfix finish 1.0.1
 ```
 
 ## Explanation of Commands
 
-- `git flow feature start <feature-name>` → Creates a new branch `feature/<feature-name>` from `develop`.  
-- `git flow feature publish <feature-name>` → Pushes the feature branch to the remote repository.  
-- `git flow feature pull <remote> <feature-name>` → Pulls the feature branch from another developer.  
-- `git flow feature finish <feature-name>` → Merges the feature into `develop` and deletes the local branch.  
+- `git flow hotfix start <version>` → Creates a new branch `hotfix/<version>` from `main`.  
+- `git flow hotfix publish <version>` → Pushes the hotfix branch to the remote repository for collaboration.  
+- `git flow hotfix finish <version>` → Merges the fix into both `main` and `develop`, tags the commit with the hotfix version (e.g., `v1.0.1`), and deletes the hotfix branch locally.  
 
 ## Summary
 
-| Aspect           | Description                                 |
-|------------------|---------------------------------------------|
-| Branch name      | `feature/<feature-name>`                    |
-| Source branch    | `develop`                                   |
-| Destination branch | `develop`                                 |
-| Purpose          | Develop a new feature or enhancement        |
-| Merged when      | Feature is completed and tested              |
-| Deleted after merge | Yes                                      |
+| Aspect            | Description                                        |
+|-------------------|--------------------------------------------------|
+| Branch name       | `hotfix/<version>`                                |
+| Source branch     | `main`                                           |
+| Destination branches | `main` and `develop`                            |
+| Purpose           | Quickly fix critical bugs in production           |
+| Contains          | Emergency patches, urgent security or stability fixes |
+| Merged when       | The fix is tested and verified                     |
+| Deleted after merge | Yes                                             |
 
 ## Diagram (Text Representation)
 
 ```
-main ───────┐
-             ├── develop ───┬── feature/add-login
-             │               ├── feature/add-dashboard
-             │               └── release/v1.0
-             │
-             └── hotfix/v1.0.1
+main ────────────────┐
+                      ├── hotfix/1.0.1
+                      │     ├── fix → main (production)
+                      │     └── merge → develop (sync fix)
+develop ──────────────┘
 ```
 
-Feature branches help developers work in isolation without affecting the main codebase, ensuring smooth collaboration and clean integration.
+The **hotfix** branch ensures production issues can be resolved immediately without interrupting ongoing development work in **develop**, maintaining both stability and productivity.
 
 ***
