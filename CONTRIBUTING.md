@@ -84,7 +84,7 @@ Every Pull Request triggers:
 
 This ensures a consistent, reliable mainline and avoids regressions.
 
-## 🏷️ Versioning & Tags
+## Versioning & Tags
 
 We use **Semantic Versioning (SemVer)**:
 
